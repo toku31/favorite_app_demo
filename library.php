@@ -3,8 +3,10 @@
 require_once __DIR__ . '/vendor/autoload.php'; // dotenv 用
 use Dotenv\Dotenv;
 // .env を読み込む
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+if (file_exists(__DIR__ . '/.env')) {
+  $dotenv = Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+}
 
 // htmlspecialcharsを短くする
 function h($value)
