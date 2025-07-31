@@ -1,0 +1,207 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  /* background: red;
+  color:red; */
+  background: #f9f9f9; 
+  color: #333; 
+  /* padding: 20px; */
+}
+
+.container {
+  background-color: #f0f0f0;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.nav-links {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter-search-form {
+  display: flex;
+  justify-content: center; /* 中央に配置 */
+  align-items: center;     /* 垂直方向の揃え */
+  gap: 10px;               /* 要素間の隙間 */
+  margin: 20px auto;
+}
+
+.filter-search-form select,
+.filter-search-form input[type="text"],
+.filter-search-form button {
+  padding: 8px;
+  font-size: 14px;
+}
+
+.reset-btn {
+  padding: 8px 12px;
+  background: #eee;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-start;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.card {
+  position: relative;
+  width: 23%;
+  min-width: 200px;
+  max-width: 300px;
+  margin: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #000;
+  display: inline-block;
+  vertical-align: top;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.4); /* 白く透かす */
+  z-index: 1;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2; /* 背景より前面に */
+  padding: 16px;
+}
+
+.card.no-image {
+  background-color: #6cb36c; /* 薄い緑 */
+}
+
+.card h3 {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.card .category {
+  font-size: 13px;
+  color: #bf19b9;
+  margin-bottom: 10px;
+}
+
+.card .tag {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.card .tag .tag-badge {
+  background-color: pink;
+  color: black;
+  font-size: 0.85em;
+  padding: 4px 10px;
+  border-radius: 16px;
+  margin: 4px 4px 0 0;
+  display: inline-block;
+  z-index: 3;
+  position: relative;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+.card .tag .tag-badge .tag-empty {
+  background-color: #eee;
+  color: #999;
+}
+
+.card .tag .tag-badge:hover {
+  background-color: #b2ebf2;
+  cursor: default;
+}
+
+.card .note {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+}
+
+.btn.edit {
+  background: #2d8cf0;
+}
+
+.btn.delete {
+  background: #f44336;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+}
+
+/* .thumbnail {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  object-fit: cover;
+}  */
+
+/* ページネーション */
+.pagination {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.pagination a {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.pagination a:hover {
+  background-color: #eee;
+}
+
+.pagination a.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-color: #007bff;
+}
+
+.pagination a.prev,
+.pagination a.next {
+  font-weight: bold;
+}

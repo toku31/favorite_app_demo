@@ -1,0 +1,57 @@
+body {
+  font-family: sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  /* background-color: #ccc; */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+table {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+td,
+th {
+  word-break: break-all;
+  /* 長い文字列を折り返す */
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.filter-search-form {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.reset-btn {
+  margin-left: 10px;
+  font-size: 0.9em;
+  color: #999;
+}
