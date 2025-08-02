@@ -1,12 +1,24 @@
 FROM php:8.2-apache
 
-# 必要なPHP拡張をインストール（MySQL使う場合など）
-RUN docker-php-ext-install pdo pdo_mysql
+# 必要な拡張機能
+RUN apt-get update && apt-get install -y \
+  default-mysql-server \
+  default-mysql-client \
+  zip unzip libzip-dev libonig-dev libxml2-dev \
+  && docker-php-ext-install pdo pdo_mysql mysqli
 
-# アプリのコードをApacheの公開ディレクトリへコピー
-COPY . /var/www/html/
+# Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Apacheが読み取れるようにパーミッション調整
-RUN chown -R www-data:www-data /var/www/html
+# 作業ディレクトリ
+WORKDIR /var/www/html
 
-EXPOSE 80
+COPY . .
+
+RUN composer install
+
+# MySQL初期化スクリプト実行のためにentrypoint変更
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
