@@ -1,0 +1,2 @@
+# configフォルダ内のファイルを全てWebから保護
+Require all denied

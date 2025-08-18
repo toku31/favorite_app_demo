@@ -1,4 +1,8 @@
 <?php
+// エラーを表示してくれる
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 require_once '../library.php';
 require_once('../models/Site.php');
@@ -44,8 +48,6 @@ $selected_tags_all_sites = $tagModel->findTagNamesBySiteIds($siteIdArray);
 // $selected_tags = !empty($selected_tags_all_sites[$site_id]) ? $selected_tags_all_sites[$site_id] : [];
 // パターン３
 $selected_tags = $selected_tags_all_sites[$site_id] ?? [];
-
-
 // debug($selected_tags);
 
 // 更新ボタンがクリックされた時
@@ -65,16 +67,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   $errors = [];
-  debug($current_image);
+  // debug($current_image);
   $filename = $current_image;
-  debug($filename);
+  // debug($filename);
   // 画像の処理
   $image = $_FILES['image'];
   // var_dump($image);
-  debug($image);
+  // debug($image);
   if ($image['name'] !== "" && $image['error'] === 0) {
     // $type = mime_content_type($image['tmp_name']);
-    debug('1');
+    // debug('1');
     $finfo = new finfo();
     $type = $finfo->file($image['tmp_name'], FILEINFO_MIME_TYPE);
     // var_dump($type);
@@ -94,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
   } elseif ($delete_image && !empty($current_image)) {
-    debug('2');
+    // debug('2');
     // チェックが入っていて、画像が存在している時、削除する
     if (file_exists('../user_image/' . $current_image)) {
       unlink('../user_image/' . $current_image);
@@ -105,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // var_dump($filename);
   if (empty($errors)) {
-    debug('3');
+    // debug('3');
     $siteModel = new Site();
     $siteModel->update([
       'id' => $site_id,
@@ -134,8 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt->execute();
     }
 
-    // header('Location: index.php');
-    // exit();
+    header('Location: index.php');
+    exit();
   }
 }
 ?>
