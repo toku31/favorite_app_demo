@@ -152,7 +152,7 @@ $totalPages = ceil($totalCount / $limit);
         <th>カテゴリ</th>
         <th>タグ</th>
         <th>メモ</th>
-        <th>登録日時</th>
+        <th>登録/編集日時</th>
         <th>操作</th>
       </tr>
       <?php foreach ($sites as $site): ?>

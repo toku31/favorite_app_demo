@@ -138,14 +138,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         }
       }
     }
-    // header('Location: thanks.php');
-    echo "サイトを登録しました。<br>";
-    echo '<a href="create.php">戻る</a> | <a href="index.php">トップ画面</a>';
+    header('Location: thanks.php');
+    // echo "サイトを登録しました。<br>";
+    // echo '<a href="create.php">戻る</a> | <a href="index.php">サイト管理</a>';
     exit();
   } else {
-    foreach ($errors as $err):
-      echo '<p style="color:red;">' . h($err)  .  "</p>";
-    endforeach;
+    //   foreach ($errors as $err):
+    //     echo '<p style="color:red;">' . h($err)  .  "</p>";
+    //   endforeach;
   }
 }
 
@@ -195,6 +195,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 <body>
   <div class="container">
     <h2>サイト登録</h2>
+    <?php foreach ($errors as $err): ?>
+      <p style="color:red;"><?php echo h($err) ?></p>
+    <?php endforeach; ?>
+
     <form action="create.php" method="post" enctype="multipart/form-data">
       <p><a href="index.php">戻る</a></p>
       <label>サイトのURL:</label><br>

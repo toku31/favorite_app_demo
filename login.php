@@ -5,6 +5,15 @@ $error = [];
 $email = "";
 $password = "";
 
+// debug(!empty($_POST['demo_login']));
+if (!empty($_POST['demo_login'])) {
+    $demo_user_id = 15; // demo_user の id
+    $_SESSION['id'] = $demo_user_id;  // ←通常ログインと同じキーに統一
+    $_SESSION['username'] = "デモユーザー";
+    header('Location: index.php');
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // echo 'submit';
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -164,6 +173,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" id="password" name="password" value="<?= h($password) ?>">
 
             <input type="submit" value="ログインする" class="btn">
+        </form>
+        <br>
+        <form method="post" action="login.php">
+            <div>すぐに試したい方は↓の <strong>デモログイン</strong> をご利用ください。メールアドレスとパスワード入力は不要です。</div>
+            <input type="submit" name="demo_login" value="デモログイン" class="btn">
         </form>
     </div>
 </body>

@@ -1,6 +1,13 @@
 <?php
 // session_start();
 require_once 'library.php';
+session_start();
+$err = $_SESSION['err'] ?? "";
+$form = $_SESSION['form'] ?? ['email' => '', 'username' => ''];
+
+// 一度使ったら削除
+unset($_SESSION['err']);
+
 $db = dbConnect();
 
 //フォームが送信されたとき
@@ -8,6 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
   $email = $_POST['email'] ?? '';
   $username = $_POST['username'] ?? '';
   $password = $_POST['password'] ?? '';
+  // debug($email);
+  // debug($password);
+
+  // 入力値をセッションに保存（再表示用）
+  $_SESSION['form'] = [
+    'email' => $email,
+    'username' => $username,
+  ];
 
   if ($email && $password) {
     // passwordをハッシュ化
@@ -23,19 +38,29 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
       if (!$success) {
         die($db->error);
       }
-      echo "登録完了しました! . <br>";
-      echo "<a href='login.php'>ログインはこちら</a>";
+      unset($_SESSION['form'], $_SESSION['err']);
+      // echo "登録完了しました! . <br>";
+      // echo "<a href='login.php'>ログインはこちら</a>";
+      $_SESSION['registered'] = true;
+      header("Location: register_success.php");
       exit();
     } catch (PDOException $e) {
       if ($e->errorInfo[1] === 1062) {
-        echo "そのメールアドレスは既に登録されています";
+        // echo "そのメールアドレスは既に登録されています";
+        $_SESSION['err'] = "そのメールアドレスは既に登録されています";
       } else {
-        echo "エラーが発生しました。" . h($e->getMessage());
+        // echo "エラーが発生しました。" . h($e->getMessage());
+        $_SESSION['err'] = "エラーが発生しました。";
       }
     }
   } else {
-    echo "ユーザ名とパスワードを入力してください";
+    $_SESSION['err'] = "ユーザ名とパスワードを入力してください";
+    // echo "ユーザ名とパスワードを入力してください";
   }
+
+  // エラーがある場合はリダイレクト
+  header("Location: register.php");
+  exit();
 }
 ?>
 
@@ -137,9 +162,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     <!-- 登録フォーム -->
     <h2>ユーザ登録</h2>
+    <p style="color:red;"><?php echo h($err) ?></p>
     <form method="POST">
-      メールアドレス<input type="email" name="email"><br>
-      ユーザ名<input type="text" name="username"><br>
+      メールアドレス<input type="email" name="email" value="<?= h($form['email']) ?>" <br>
+      ユーザ名<input type="text" name="username" value="<?php echo h($form['username']) ?>"><br>
       パスワード<input type="password" name="password"><br>
       <button type="submit">登録</button>
     </form>
